@@ -11,7 +11,7 @@
     <groupId>com.example</groupId>
     <artifactId>springsOfAlmawalehPOS</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>jar</packaging>
+    <packaging>war</packaging>
     <name>springsOfAlmawalehPOS</name>
     <description>Demo project for Spring Boot</description>
     <properties>
@@ -31,6 +31,12 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.microsoft.sqlserver</groupId>
+            <artifactId>mssql-jdbc</artifactId>
+            <scope>runtime</scope>
         </dependency>
 
         <dependency>
