@@ -33,17 +33,17 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
-<!--        <dependency>-->
-<!--            <groupId>com.microsoft.sqlserver</groupId>-->
-<!--            <artifactId>mssql-jdbc</artifactId>-->
-<!--            <scope>runtime</scope>-->
-<!--        </dependency>-->
-
         <dependency>
             <groupId>com.microsoft.sqlserver</groupId>
             <artifactId>mssql-jdbc</artifactId>
-            <version>8.4.1.jre11</version> <!-- Replace with the appropriate version -->
+            <scope>runtime</scope>
         </dependency>
+
+<!--        <dependency>-->
+<!--            <groupId>com.microsoft.sqlserver</groupId>-->
+<!--            <artifactId>mssql-jdbc</artifactId>-->
+<!--            <version>8.4.1.jre11</version> &lt;!&ndash; Replace with the appropriate version &ndash;&gt;-->
+<!--        </dependency>-->
 
         <dependency>
             <groupId>com.mysql</groupId>
