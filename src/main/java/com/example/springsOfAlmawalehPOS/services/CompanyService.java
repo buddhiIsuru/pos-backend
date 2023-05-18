@@ -32,4 +32,10 @@ public class CompanyService {
         company.setName(companyModal.getName());
         return modelMapper.map(companyRepository.save(company),CompanyModal.class);
     }
+
+    public List<CompanyModal> getCompany() {
+        Iterable<Company> companyList= companyRepository.findAll();
+        return modelMapper.map(companyList, new TypeToken<List<CompanyModal>>() {
+        }.getType());
+    }
 }

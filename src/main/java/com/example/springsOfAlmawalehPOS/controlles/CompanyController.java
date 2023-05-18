@@ -5,8 +5,10 @@ import com.example.springsOfAlmawalehPOS.services.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
-@RequestMapping(value = "/company")
+@RequestMapping(value = "api/v1/company")
 @CrossOrigin
 public class CompanyController {
     @Autowired
@@ -15,5 +17,10 @@ public class CompanyController {
     @PostMapping("/save-company")
     public CompanyModal saveCategory(@RequestBody CompanyModal companyModal){
         return companyService.saveCompany(companyModal);
+    }
+
+    @GetMapping("/get-company")
+    public List<CompanyModal> getCategory(){
+        return companyService.getCompany();
     }
 }
