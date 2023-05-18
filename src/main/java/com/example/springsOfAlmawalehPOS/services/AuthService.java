@@ -58,17 +58,19 @@ public class AuthService {
             returnModal.setPassword(user.getPassword());
             returnModal.setUsername(user.getUsername());
             returnModal.setRoleModal(roleModal);
-            returnModal.setOutletModal(outletModal);
+            if (outletModal != null) {
+                returnModal.setOutletModal(outletModal);
+            }
             if (Objects.equals(roleModal.getName(), "USER")) {
-                ShiftManagement shift = shiftRepository.findFirstByOutletAndStatus(user.getOutlet(),true);
-                if(shift==null){
-                    shift=new ShiftManagement();
+                ShiftManagement shift = shiftRepository.findFirstByOutletAndStatus(user.getOutlet(), true);
+                if (shift == null) {
+                    shift = new ShiftManagement();
                 }
 //                ShiftManagement shift = shiftRepository.findFirstByOutlet(user.getOutlet());
                 shift.setOutlet(user.getOutlet());
                 shift.setStart_at(LocalDateTime.now());
                 shift.setStatus(true);
-                ShiftManagement shiftSave=shiftRepository.save(shift);
+                ShiftManagement shiftSave = shiftRepository.save(shift);
                 returnModal.setShiftId(shiftSave.getId());
             }
         }
@@ -80,8 +82,8 @@ public class AuthService {
         shift.setId(id);
         shift.setStatus(false);
         shift.setClose_at(LocalDateTime.now());
-        ShiftManagement shiftSave=shiftRepository.save(shift);
-        ShiftManagementModal shiftManagementModal=new ShiftManagementModal();
+        ShiftManagement shiftSave = shiftRepository.save(shift);
+        ShiftManagementModal shiftManagementModal = new ShiftManagementModal();
         shiftManagementModal.setId(shiftSave.getId());
         return shiftManagementModal;
     }
@@ -99,11 +101,11 @@ public class AuthService {
         return userModalList;
     }
 
-    public List<ShiftManagementModal>  getOutletShift(Long id) {
-        List<ShiftManagement> shiftManagementList= shiftRepository.findByOutlet(outletRepository.findFirstById(id));
+    public List<ShiftManagementModal> getOutletShift(Long id) {
+        List<ShiftManagement> shiftManagementList = shiftRepository.findByOutlet(outletRepository.findFirstById(id));
         List<ShiftManagementModal> shiftManagementModals = new ArrayList<>();
         for (ShiftManagement shiftManagement : shiftManagementList) {
-            ShiftManagementModal shiftManagementModal=new ShiftManagementModal();
+            ShiftManagementModal shiftManagementModal = new ShiftManagementModal();
             shiftManagementModal.setId(shiftManagement.getId());
             shiftManagementModal.setClose_at(shiftManagement.getClose_at());
             shiftManagementModal.setStart_at(shiftManagement.getStart_at());
