@@ -40,7 +40,7 @@ public class AuthService {
         if (!authRepository.existsByUsername(userModal.getUsername())) {
             user.setUsername(userModal.getUsername());
             user.setPassword(userModal.getPassword());
-            user.setRole(roleRepository.findFirstById(userModal.getRoleId()));
+//            user.setRole(roleRepository.findFirstById(userModal.getRoleId()));
             user.setOutlet(outletRepository.findFirstById(userModal.getOutletId()));
             User userSave = authRepository.save(user);
             returnModal.setPassword(userSave.getPassword());
@@ -53,15 +53,15 @@ public class AuthService {
         UserModal returnModal = new UserModal();
         User user = authRepository.findUserByUsernameAndPassword(authModal.getUserName(), authModal.getPassword());
         if (user != null) {
-            RoleModal roleModal = modelMapper.map(roleRepository.findFirstById(user.getRole().getId()), RoleModal.class);
+//            RoleModal roleModal = modelMapper.map(roleRepository.findFirstById(user.getRole().getId()), RoleModal.class);
             OutletModal outletModal = modelMapper.map(outletRepository.findFirstById(user.getOutlet().getId()), OutletModal.class);
             returnModal.setPassword(user.getPassword());
             returnModal.setUsername(user.getUsername());
-            returnModal.setRoleModal(roleModal);
+            returnModal.setRole(user.getRole());
             if (outletModal != null) {
                 returnModal.setOutletModal(outletModal);
             }
-            if (Objects.equals(roleModal.getName(), "USER")) {
+            if (Objects.equals(user.getRole(), "USER")) {
                 ShiftManagement shift = shiftRepository.findFirstByOutletAndStatus(user.getOutlet(), true);
                 if (shift == null) {
                     shift = new ShiftManagement();
@@ -95,7 +95,7 @@ public class AuthService {
             UserModal userModal = new UserModal();
             userModal.setUsername(user.getUsername());
             userModal.setPassword(user.getPassword());
-            userModal.setRoleModal(modelMapper.map(roleRepository.findFirstById(user.getRole().getId()), RoleModal.class));
+//            userModal.setRoleModal(modelMapper.map(roleRepository.findFirstById(user.getRole()), RoleModal.class));
             userModalList.add(userModal);
         }
         return userModalList;

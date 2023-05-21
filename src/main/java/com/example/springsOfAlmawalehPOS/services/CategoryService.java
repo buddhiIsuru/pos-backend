@@ -1,16 +1,12 @@
 package com.example.springsOfAlmawalehPOS.services;
 
 import com.example.springsOfAlmawalehPOS.entity.Category;
-import com.example.springsOfAlmawalehPOS.entity.Customer;
 import com.example.springsOfAlmawalehPOS.entity.Outlet;
 import com.example.springsOfAlmawalehPOS.modal.CategoryModal;
-import com.example.springsOfAlmawalehPOS.modal.CustomerModal;
 import com.example.springsOfAlmawalehPOS.repositories.CategoryRepository;
-import com.example.springsOfAlmawalehPOS.repositories.CustomerRepository;
 import com.example.springsOfAlmawalehPOS.repositories.OutletRepository;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,16 +14,31 @@ import java.util.Optional;
 
 @Service
 public class CategoryService {
-    @Autowired
-    private CategoryRepository categoryRepository;
 
-    @Autowired
-    private OutletRepository outletRepository;
+    private final CategoryRepository categoryRepository;
 
-    @Autowired
-    private ModelMapper modelMapper;
+
+    private final OutletRepository outletRepository;
+
+
+    private final ModelMapper modelMapper;
+
+    public CategoryService(CategoryRepository categoryRepository, OutletRepository outletRepository, ModelMapper modelMapper) {
+        this.categoryRepository = categoryRepository;
+        this.outletRepository = outletRepository;
+        this.modelMapper = modelMapper;
+    }
 
     public CategoryModal saveCategory(CategoryModal categoryModal){
+
+
+//        CategoryModal sdsd = CategoryModal.builder()
+//                .id(23432535l)
+//                .name("sdsd")
+//                .outletId(3232323l)
+//                .build();
+
+
         Category category=new Category();
         Outlet outlet=outletRepository.findFirstById(categoryModal.getOutletId());
         System.out.println(categoryModal.getId());

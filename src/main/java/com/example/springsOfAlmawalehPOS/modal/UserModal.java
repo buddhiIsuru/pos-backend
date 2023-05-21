@@ -1,11 +1,8 @@
 package com.example.springsOfAlmawalehPOS.modal;
 
 import com.example.springsOfAlmawalehPOS.entity.Outlet;
-import com.example.springsOfAlmawalehPOS.entity.Role;
-import jakarta.persistence.*;
+import com.example.springsOfAlmawalehPOS.permission.Role;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 

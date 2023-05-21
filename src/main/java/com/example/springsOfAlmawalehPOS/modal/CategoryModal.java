@@ -3,10 +3,7 @@ package com.example.springsOfAlmawalehPOS.modal;
 import com.example.springsOfAlmawalehPOS.entity.Outlet;
 import com.example.springsOfAlmawalehPOS.entity.SubCategory;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.Date;
 import java.util.Set;
@@ -15,6 +12,7 @@ import java.util.Set;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class CategoryModal {
     private Long id;
     private String name;
