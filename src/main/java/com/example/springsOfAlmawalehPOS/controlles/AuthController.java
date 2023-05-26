@@ -1,6 +1,5 @@
 package com.example.springsOfAlmawalehPOS.controlles;
 
-import com.example.springsOfAlmawalehPOS.entity.ShiftManagement;
 import com.example.springsOfAlmawalehPOS.modal.AuthModal;
 import com.example.springsOfAlmawalehPOS.modal.RoleModal;
 import com.example.springsOfAlmawalehPOS.modal.ShiftManagementModal;
@@ -8,10 +7,14 @@ import com.example.springsOfAlmawalehPOS.modal.UserModal;
 import com.example.springsOfAlmawalehPOS.services.AuthService;
 import com.example.springsOfAlmawalehPOS.services.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "api/v1/auth")
@@ -22,7 +25,6 @@ public class AuthController {
 
     @Autowired
     private RoleService roleService;
-
 
     @PostMapping("/register")
     public UserModal userRegister(@RequestBody UserModal userModal){

@@ -25,9 +25,9 @@ public interface InvoiceRepository extends CrudRepository<Invoice, Long>, Paging
     List<Invoice> findAllByOutletAndIs_draft(@Param("outletID") Long outletID, @Param("isDraft") Boolean isDraft, @Param("isCancel") Boolean isCancel);
 
     @Query(
-            value = "SELECT id FROM invoice WHERE outlet_id=:outletID  order by id desc limit 1;",
+            value = "SELECT id FROM invoice WHERE outlet_id=:outletID  order by created_at desc;",
             nativeQuery = true)
-    Long findLatestInvoiceId(@Param("outletID") Long outletID);
+    List<Long> findLatestInvoiceId(@Param("outletID") Long outletID);
 
     @Query(
             value = "select * from invoice where created_at between :start_time and :close_time order by created_at desc;",

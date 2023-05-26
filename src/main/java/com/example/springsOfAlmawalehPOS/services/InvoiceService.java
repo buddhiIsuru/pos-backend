@@ -136,10 +136,13 @@ public class InvoiceService {
     }
 
     public Long getLatestInvoiceId(Long id) {
-        Long invoiceId = invoiceRepository.findLatestInvoiceId(id);
-        if (invoiceId == null) {
+        List<Long> invoiceIdList = invoiceRepository.findLatestInvoiceId(id);
+        Long invoiceId =0L;
+        if (invoiceIdList.isEmpty()) {
             invoiceId = 1L;
 //            invoiceId = (long) Math.floor(Math.random() * (99) + 9);
+        }else {
+            invoiceId=invoiceIdList.get(0);
         }
         return invoiceId;
     }
