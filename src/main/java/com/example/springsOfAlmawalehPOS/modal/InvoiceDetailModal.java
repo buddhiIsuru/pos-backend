@@ -17,6 +17,7 @@ import java.util.Set;
 @ToString
 public class InvoiceDetailModal {
     private Long id;
+    private Long img;
     private Integer product_qty;
     private Double product_amount;
     private Double product_discount;

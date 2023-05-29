@@ -106,7 +106,7 @@ public class InvoiceService {
             invoiceModal.setGrandTotalAmount(invoice.getGrandTotalAmount());
             invoiceModal.setTotal_discount(invoice.getTotal_discount());
             invoiceModal.setTotal_qty(invoice.getTotal_qty());
-            invoiceModal.setCustomer(invoice.getCustomer());
+            //invoiceModal.setCustomer(invoice.getCustomer());
             invoiceModal.setTax_amount(invoice.getTax_amount());
             invoiceModal.setRemark(invoice.getRemark());
             invoiceModal.setCreatedAt(invoice.getCreatedAt());
@@ -174,6 +174,7 @@ public class InvoiceService {
             invoiceDetailModal.setProduct_discount(invoiceDetail.getProduct_discount());
             invoiceDetailModal.setProduct_qty(invoiceDetail.getProduct_qty());
             invoiceDetailModal.setProductName(productRepository.findFirstById(invoiceDetail.getProductId()).getName());
+            invoiceDetailModal.setImg(productRepository.findFirstById(invoiceDetail.getProductId()).getImageId());
             invoiceDetailModalSet.add(invoiceDetailModal);
         }
         invoiceModal.setInvoiceDetailsDetailModals(invoiceDetailModalSet);
