@@ -20,7 +20,7 @@ public interface InvoiceRepository extends CrudRepository<Invoice, Long>, Paging
 //    Optional<Invoice> findAllByOutletAndIs_draft(Outlet outlet,boolean value);
 
     @Query(
-            value = "SELECT * FROM invoice WHERE outlet_id = :outletID and is_draft=:isDraft and is_cancel=:isCancel",
+            value = "SELECT * FROM invoice WHERE outlet_id = :outletID and is_draft=:isDraft and is_cancel=:isCancel order by created_at desc;",
             nativeQuery = true)
     List<Invoice> findAllByOutletAndIs_draft(@Param("outletID") Long outletID, @Param("isDraft") Boolean isDraft, @Param("isCancel") Boolean isCancel);
 

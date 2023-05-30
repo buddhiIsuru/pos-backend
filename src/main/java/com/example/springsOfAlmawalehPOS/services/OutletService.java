@@ -32,6 +32,7 @@ public class OutletService {
     public ResponseEntity<OutletModal> saveOutlet(OutletModal outletModal){
         Outlet outlet= new Outlet();
         Company company=companyRepository.findFirstById(outletModal.getCompanyId());
+        outlet.setId(outletModal.getId());
         outlet.setOutletName(outletModal.getOutletName());
         outlet.setAddress(outletModal.getAddress());
         outlet.setPhoneNo(outletModal.getPhoneNo());
