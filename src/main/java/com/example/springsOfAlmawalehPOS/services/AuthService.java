@@ -56,6 +56,7 @@ public class AuthService {
             RoleModal roleModal = modelMapper.map(roleRepository.findFirstById(user.getRole().getId()), RoleModal.class);
             OutletModal outletModal = modelMapper.map(outletRepository.findFirstById(user.getOutlet().getId()), OutletModal.class);
             returnModal.setPassword(user.getPassword());
+            returnModal.setUserId(user.getId());
             returnModal.setUsername(user.getUsername());
             returnModal.setRoleModal(roleModal);
             if (outletModal != null) {
