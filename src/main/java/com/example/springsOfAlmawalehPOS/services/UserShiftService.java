@@ -22,8 +22,8 @@ public class UserShiftService {
         this.shiftCashManagementRepository = shiftCashManagementRepository;
     }
 
-    public Long startUserShiftRepository(UserShiftModal userShiftModal) {
-        UserShift isDefine = userShiftRepository.findFirstByUser(userShiftModal.getId());
+    public UserShift startUserShiftRepository(UserShiftModal userShiftModal) {
+        UserShift isDefine = userShiftRepository.findFirstByUserAndStatus(userShiftModal.getId(),true);
         if (isDefine == null) {
             UserShift userShift =
                     UserShift
@@ -40,9 +40,9 @@ public class UserShiftService {
                         .startAmount(userShiftModal.getStartAmount())
                         .build();
             }
-            return userShiftSaved.getId();
+            return userShiftSaved;
         }
-        return  isDefine.getId();
+        return  isDefine;
 
     }
 

@@ -1,6 +1,7 @@
 package com.example.springsOfAlmawalehPOS.controlles;
 
 
+import com.example.springsOfAlmawalehPOS.entity.UserShift;
 import com.example.springsOfAlmawalehPOS.modal.UserShiftModal;
 import com.example.springsOfAlmawalehPOS.services.UserShiftService;
 import org.springframework.http.HttpStatus;
@@ -19,7 +20,7 @@ public class UserShiftController {
     }
 
     @PostMapping("/start-shift")
-    public ResponseEntity<Long> startUserShiftRepository(@RequestBody UserShiftModal userShiftModal) {
+    public ResponseEntity<UserShift> startUserShiftRepository(@RequestBody UserShiftModal userShiftModal) {
         return ResponseEntity.status(HttpStatus.CREATED).body(userShiftService.startUserShiftRepository(userShiftModal));
     }
 

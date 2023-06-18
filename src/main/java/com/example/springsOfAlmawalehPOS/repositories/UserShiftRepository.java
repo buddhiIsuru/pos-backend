@@ -7,5 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface UserShiftRepository extends JpaRepository<UserShift, Long> {
 
     UserShift findFirstById(Long id);
-    UserShift findFirstByUser(Long id);
+    UserShift findFirstByUserAndStatus(Long id,boolean status);
 }
