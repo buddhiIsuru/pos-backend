@@ -6,6 +6,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Entity
 @Setter
@@ -32,6 +33,9 @@ public class User {
 
     @UpdateTimestamp
     private LocalDateTime updatedAt;
+
+    @OneToMany(mappedBy = "user")
+    private Set<UserShift> UserShiftSet;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "outlet_id",referencedColumnName = "id")

@@ -1,0 +1,58 @@
+package com.example.springsOfAlmawalehPOS.services;
+
+import com.example.springsOfAlmawalehPOS.entity.ShiftCashManagement;
+import com.example.springsOfAlmawalehPOS.entity.UserShift;
+import com.example.springsOfAlmawalehPOS.modal.UserShiftModal;
+import com.example.springsOfAlmawalehPOS.repositories.ShiftCashManagementRepository;
+import com.example.springsOfAlmawalehPOS.repositories.UserRepository;
+import com.example.springsOfAlmawalehPOS.repositories.UserShiftRepository;
+import org.springframework.stereotype.Service;
+
+@Service
+public class UserShiftService {
+    private final UserShiftRepository userShiftRepository;
+    private final UserRepository userRepository;
+    private final ShiftCashManagementRepository shiftCashManagementRepository;
+
+    private UserShiftService(UserShiftRepository userShiftRepository, UserRepository userRepository,ShiftCashManagementRepository shiftCashManagementRepository) {
+        this.userShiftRepository = userShiftRepository;
+        this.userRepository = userRepository;
+        this.shiftCashManagementRepository = shiftCashManagementRepository;
+    }
+
+    public Long startUserShiftRepository(UserShiftModal userShiftModal) {
+        UserShift userShift =
+                UserShift
+                        .builder()
+                        .user(userRepository.findFirstById(userShiftModal.getId()))
+                        .start_at(userShiftModal.getStart_at())
+                        .status(true)
+                        .build();
+        UserShift userShiftSaved =userShiftRepository.save(userShift);
+        if(userShiftSaved.getId()!=null){
+            ShiftCashManagement shiftCashManagement=ShiftCashManagement
+                    .builder()
+                    .userShift(userShiftSaved)
+                    .startAmount(userShiftModal.getStartAmount())
+                    .build();
+        }
+        return userShiftSaved.getId();
+    }
+
+    public Long closeUserShiftRepository(UserShiftModal userShiftModal) {
+        UserShift userShift = userShiftRepository.findFirstById(userShiftModal.getId());
+
+        userShift.setClose_at(userShiftModal.getClose_at());
+        userShift.setStatus(false);
+
+        UserShift userShiftSaved =userShiftRepository.save(userShift);
+
+        if(userShiftModal.getId()!=null){
+            ShiftCashManagement shiftCashManagement=shiftCashManagementRepository.findFirstByUserShift(userShiftModal.getId());
+            shiftCashManagement.setCloseAmount(userShiftModal.getCloseAmount());
+        }
+        return userShiftSaved.getId();
+    }
+
+
+}

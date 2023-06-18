@@ -61,7 +61,7 @@ public class AuthService {
             if (outletModal != null) {
                 returnModal.setOutletModal(outletModal);
             }
-            if (Objects.equals(roleModal.getName(), "USER")) {
+//            if (Objects.equals(roleModal.getName(), "USER")) {
                 ShiftManagement shift = shiftRepository.findFirstByOutletAndStatus(user.getOutlet(), true);
                 if (shift == null) {
                     shift = new ShiftManagement();
@@ -72,7 +72,7 @@ public class AuthService {
                 shift.setStatus(true);
                 ShiftManagement shiftSave = shiftRepository.save(shift);
                 returnModal.setShiftId(shiftSave.getId());
-            }
+//            }
         }
         return returnModal;
     }
