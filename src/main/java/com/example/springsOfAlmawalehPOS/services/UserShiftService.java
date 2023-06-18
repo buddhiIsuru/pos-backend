@@ -8,6 +8,8 @@ import com.example.springsOfAlmawalehPOS.repositories.UserRepository;
 import com.example.springsOfAlmawalehPOS.repositories.UserShiftRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
 @Service
 public class UserShiftService {
     private final UserShiftRepository userShiftRepository;
@@ -25,7 +27,7 @@ public class UserShiftService {
                 UserShift
                         .builder()
                         .user(userRepository.findFirstById(userShiftModal.getId()))
-                        .start_at(userShiftModal.getStart_at())
+                        .start_at(LocalDateTime.now())
                         .status(true)
                         .build();
         UserShift userShiftSaved =userShiftRepository.save(userShift);
@@ -42,7 +44,7 @@ public class UserShiftService {
     public Long closeUserShiftRepository(UserShiftModal userShiftModal) {
         UserShift userShift = userShiftRepository.findFirstById(userShiftModal.getId());
 
-        userShift.setClose_at(userShiftModal.getClose_at());
+        userShift.setClose_at(LocalDateTime.now());
         userShift.setStatus(false);
 
         UserShift userShiftSaved =userShiftRepository.save(userShift);
