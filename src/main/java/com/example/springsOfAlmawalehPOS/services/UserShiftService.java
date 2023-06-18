@@ -24,7 +24,7 @@ public class UserShiftService {
 
     public Long startUserShiftRepository(UserShiftModal userShiftModal) {
         UserShift isDefine = userShiftRepository.findFirstByUser(userRepository.findFirstById(userShiftModal.getId()));
-        if (isDefine != null) {
+        if (isDefine == null) {
             UserShift userShift =
                     UserShift
                             .builder()
