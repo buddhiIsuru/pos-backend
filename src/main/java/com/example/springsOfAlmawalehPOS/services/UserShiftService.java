@@ -22,6 +22,12 @@ public class UserShiftService {
         this.shiftCashManagementRepository = shiftCashManagementRepository;
     }
 
+    public UserShift checkUserShiftRepository(Long id) {
+        UserShift isDefine = userShiftRepository.findFirstByUserAndStatus(id,true);
+        return  isDefine;
+
+    }
+
     public UserShift startUserShiftRepository(UserShiftModal userShiftModal) {
         UserShift isDefine = userShiftRepository.findFirstByUserAndStatus(userShiftModal.getId(),true);
         if (isDefine == null) {
