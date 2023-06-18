@@ -26,7 +26,7 @@ public class UserShift {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "userShift")
     private Set<ShiftCashManagement> userShiftCashManagements;
 
     private boolean status;
