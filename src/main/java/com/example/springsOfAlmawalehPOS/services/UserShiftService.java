@@ -24,16 +24,26 @@ public class UserShiftService {
 
     public UserShiftModal checkUserShiftRepository(Long id) {
         UserShift isDefine = userShiftRepository.findFirstByUserAndStatus(userRepository.findFirstById(id), true);
-        UserShiftModal userShiftModal =
-                UserShiftModal.
-                        builder().
-                        start_at(isDefine.getStart_at()).
-                        close_at(isDefine.getClose_at()).
-                        id(isDefine.getId()).
-                        status(true).
-                        startAmount(shiftCashManagementRepository.findFirstByUserShift(isDefine).getStartAmount()).
-                        closeAmount(shiftCashManagementRepository.findFirstByUserShift(isDefine).getCloseAmount()).
-                        build();
+        UserShiftModal userShiftModal = null;
+        if (isDefine != null) {
+            userShiftModal =
+                    UserShiftModal.
+                            builder().
+                            start_at(isDefine.getStart_at()).
+                            close_at(isDefine.getClose_at()).
+                            id(isDefine.getId()).
+                            status(true).
+                            startAmount(shiftCashManagementRepository.findFirstByUserShift(isDefine).getStartAmount()).
+                            closeAmount(shiftCashManagementRepository.findFirstByUserShift(isDefine).getCloseAmount()).
+                            build();
+        } else {
+            userShiftModal =
+                    UserShiftModal.
+                            builder().
+                            id(0L).
+                            status(false).
+                            build();
+        }
         return userShiftModal;
     }
 
