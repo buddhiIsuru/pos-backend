@@ -20,13 +20,14 @@ public class UserShiftController {
     }
 
     @PostMapping("/start-shift")
-    public ResponseEntity<UserShift> startUserShift(@RequestBody UserShiftModal userShiftModal) {
+    public ResponseEntity<UserShiftModal> startUserShift(@RequestBody UserShiftModal userShiftModal) {
         return ResponseEntity.status(HttpStatus.CREATED).body(userShiftService.startUserShiftRepository(userShiftModal));
     }
 
     @GetMapping("/check-shift/{id}")
-    public ResponseEntity<UserShift> checkUserShift(@PathVariable("id") Long id ) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(userShiftService.checkUserShiftRepository(id));
+    public UserShiftModal checkUserShift(@PathVariable("id") Long id ) {
+        return userShiftService.checkUserShiftRepository(id);
+//        return ResponseEntity.status(HttpStatus.OK).body(userShiftService.checkUserShiftRepository(id));
     }
 
     @PostMapping("/close-shift")

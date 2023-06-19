@@ -22,19 +22,28 @@ public class UserShiftService {
         this.shiftCashManagementRepository = shiftCashManagementRepository;
     }
 
-    public UserShift checkUserShiftRepository(Long id) {
-        UserShift isDefine = userShiftRepository.findFirstByUserAndStatus(id,true);
-        return  isDefine;
-
+    public UserShiftModal checkUserShiftRepository(Long id) {
+        UserShift isDefine = userShiftRepository.findFirstByUserAndStatus(userRepository.findFirstById(id), true);
+        UserShiftModal userShiftModal =
+                UserShiftModal.
+                        builder().
+                        start_at(isDefine.getStart_at()).
+                        close_at(isDefine.getClose_at()).
+                        id(isDefine.getId()).
+                        status(true).
+                        startAmount(shiftCashManagementRepository.findFirstByUserShift(isDefine).getStartAmount()).
+                        closeAmount(shiftCashManagementRepository.findFirstByUserShift(isDefine).getCloseAmount()).
+                        build();
+        return userShiftModal;
     }
 
-    public UserShift startUserShiftRepository(UserShiftModal userShiftModal) {
-        UserShift isDefine = userShiftRepository.findFirstByUserAndStatus(userShiftModal.getId(),true);
+    public UserShiftModal startUserShiftRepository(UserShiftModal userShiftModal) {
+        UserShift isDefine = userShiftRepository.findFirstByUserAndStatus(userRepository.findFirstById(userShiftModal.getId()), true);
         if (isDefine == null) {
             UserShift userShift =
                     UserShift
                             .builder()
-                            .user(userRepository.findFirstById(userShiftModal.getId()))
+                            .user(userRepository.findFirstById(userShiftModal.getUserId()))
                             .start_at(LocalDateTime.now())
                             .status(true)
                             .build();
@@ -45,26 +54,45 @@ public class UserShiftService {
                         .userShift(userShiftSaved)
                         .startAmount(userShiftModal.getStartAmount())
                         .build();
+                shiftCashManagementRepository.save(shiftCashManagement);
             }
-            return userShiftSaved;
+            return UserShiftModal.
+                    builder().
+                    start_at(userShiftSaved.getStart_at()).
+                    id(userShiftSaved.getId()).
+                    status(true).
+                    startAmount(shiftCashManagementRepository.findFirstByUserShift(userShiftSaved).getStartAmount()).
+                    build();
         }
-        return  isDefine;
+        return
+                UserShiftModal.
+                        builder().
+                        start_at(isDefine.getStart_at()).
+                        id(isDefine.getId()).
+                        status(true).
+                        startAmount(shiftCashManagementRepository.findFirstByUserShift(isDefine).getStartAmount()).
+                        build();
 
     }
 
     public Long closeUserShiftRepository(UserShiftModal userShiftModal) {
-        UserShift userShift = userShiftRepository.findFirstById(userShiftModal.getId());
+        UserShift userShift = userShiftRepository.findFirstByUserAndStatus(userRepository.findFirstById(userShiftModal.getUserId()), true);
 
-        userShift.setClose_at(LocalDateTime.now());
-        userShift.setStatus(false);
+        if (userShift != null) {
+            userShift.setClose_at(LocalDateTime.now());
+            userShift.setStatus(false);
 
-        UserShift userShiftSaved = userShiftRepository.save(userShift);
+            UserShift userShiftSaved = userShiftRepository.save(userShift);
 
-        if (userShiftModal.getId() != null) {
-            ShiftCashManagement shiftCashManagement = shiftCashManagementRepository.findFirstByUserShift(userShiftModal.getId());
-            shiftCashManagement.setCloseAmount(userShiftModal.getCloseAmount());
+            if (userShiftModal.getId() != null) {
+                ShiftCashManagement shiftCashManagement = shiftCashManagementRepository.findFirstByUserShift(userShiftRepository.findFirstById(userShiftModal.getId()));
+                shiftCashManagement.setCloseAmount(userShiftModal.getCloseAmount());
+                shiftCashManagementRepository.save(shiftCashManagement);
+            }
+            return userShiftSaved.getId();
         }
-        return userShiftSaved.getId();
+        return null;
+
     }
 
 

@@ -41,6 +41,9 @@ public class InvoiceService {
     private ShiftRepository shiftRepository;
 
     @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
     private ModelMapper modelMapper;
 
     @Transactional
@@ -59,6 +62,7 @@ public class InvoiceService {
             invoice.setCustomer(customer);
         }
         invoice.setTotal_qty(invoiceModal.getTotal_qty());
+        invoice.setUser(userRepository.findFirstById(invoiceModal.getUserId()));
         invoice.setGrandTotalAmount(invoiceModal.getGrandTotalAmount());
         invoice.setSubTotalAmount(invoiceModal.getSubTotalAmount());
         invoice.setTotal_discount(invoiceModal.getTotal_discount());

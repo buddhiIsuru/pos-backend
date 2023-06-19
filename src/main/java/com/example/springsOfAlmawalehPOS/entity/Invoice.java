@@ -45,6 +45,10 @@ public class Invoice {
     private Outlet outlet;
 
     @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id",referencedColumnName = "id")
+    private User user;
+
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "customer_id",referencedColumnName = "id")
     private Customer customer;
 

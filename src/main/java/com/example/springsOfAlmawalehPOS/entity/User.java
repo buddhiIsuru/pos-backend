@@ -37,6 +37,9 @@ public class User {
     @OneToMany(mappedBy = "user")
     private Set<UserShift> UserShiftSet;
 
+    @OneToMany(mappedBy = "user")
+    private Set<Invoice> invoiceSet;
+
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "outlet_id",referencedColumnName = "id")
     private Outlet outlet;

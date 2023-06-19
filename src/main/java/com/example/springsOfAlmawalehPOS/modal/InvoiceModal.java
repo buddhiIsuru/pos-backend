@@ -18,7 +18,9 @@ public class InvoiceModal {
     private Long id;
     private String remark;
     private Long outletId;
+    private Long userId;
     private Outlet outlet;
+    private User user;
     private Long customerId;
     private String customerVehicleNo;
     private Boolean is_draft;
